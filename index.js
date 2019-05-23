@@ -27,6 +27,18 @@ server.post('/api/users', (req, res) => {
 })
 
 
+// GET
+
+server.get('/api/users', (req, res) => {
+    db.find()
+    .then(allUsers => {
+        res.json(allUsers);
+    })
+    .catch(({ code, message }) => {
+        res.status(500).json({ error: "The users information could not be retrieved." });
+    })
+})
+
 server.listen(4000, ()=> {
     console.log(`\n***Server Running on http://localhost:4000***\n`)
 })
