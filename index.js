@@ -39,6 +39,25 @@ server.get('/api/users', (req, res) => {
     })
 })
 
+// DELETE
+
+server.delete('/api/users/:id', (req, res) => {
+    const { id } = req.params;
+
+    db.remove(id)
+    .then(removedUser => {
+        if(removedUser) {
+            res.json(removedUser)
+        } 
+        else {
+            res.status(404).json({ message: "The user with specified ID does not exist "})
+        }
+    })
+    .catch(({ code, message }) => {
+        res.status(500).json({ err: "The user could not be removed" })
+    })
+})
+
 server.listen(4000, ()=> {
     console.log(`\n***Server Running on http://localhost:4000***\n`)
 })
